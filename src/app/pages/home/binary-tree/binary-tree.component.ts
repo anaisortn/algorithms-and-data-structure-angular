@@ -18,9 +18,6 @@ export class BinaryTreeComponent implements OnInit {
 
   public getData() {
     let data = parseFloat(window.prompt('Enter a number'))
-    data.toFixed
-    console.log(data)
-    // let data = parseInt(document.getElementsByName('number')[0].value)
     if (isNaN(data)) {
       return null
     } else {
