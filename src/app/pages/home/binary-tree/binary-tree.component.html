@@ -1,10 +1,20 @@
-<div class="top">
-  <button onclick="tree.add()">Add</button>
-  <button onclick="tree.contains()">Contains</button>
-  <button onclick="tree.remove()">Remove</button>
-  <p>
-    <input id="input" type="number" name="number" />
-  </p>
-</div>
-<div class="root">
+<div class="content">
+  <div class="buttons">
+    <button (click)="add()">
+      <i class="fa fa-plus"></i>
+      <span>ADD</span>
+    </button>
+    <button (click)="contains()">
+      <i class="fa fa-search"></i>
+      <span>CONTAINS</span></button>
+    <button (click)="remove()">
+      <i class="fa fa-minus"></i>
+      <span>REMOVE</span>
+    </button>
+    <!-- <p>
+      <input id="input" type="number" name="number" />
+    </p> -->
+  </div>
+  <div class="root">
+  </div>
 </div>

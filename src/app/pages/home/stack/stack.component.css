@@ -1,0 +1,23 @@
+.buttons {
+  float: left;
+  margin-left: 4em;
+  margin-top: 10em;
+}
+
+.buttons button {
+  margin-top: 0.4em;
+}
+
+#stack {
+  float: left;
+  margin-left: 10em;
+  border: 1px solid black;
+  border-bottom: none;
+  width: 15em;
+  height: 45em;
+  margin-top: 70px;
+  display: table-cell;  
+  vertical-align: bottom;
+  position: relative;
+  transform: rotate(180deg)
+}

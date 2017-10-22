@@ -1,0 +1,47 @@
+<div class="content">
+  <div class="buttons">
+    <button id="add" class="button" (click)="enqueue()">
+      <i class="fa fa-plus"></i>
+      <span>ADD ITEMS</span>
+    </button>
+    <button id="peek" (click)="peek()">
+      <i class="fa fa-undo"></i>
+      <span>PEEK</span>
+    </button>
+    <button id="enumerate" (click)="enumerate()">
+      <i class="fa fa-list"></i>
+      <span>ENUMERATE</span>
+    </button>
+    <button id="size" (click)="size()">
+      <i class="fa fa-terminal"></i>
+      <span>SIZE</span>
+    </button>
+    <button id="process" (click)="dequeue()">
+      <i class="fa fa-play"></i>
+      <span>PROCESS QUEUE</span>
+    </button>
+  </div>
+
+  <div id="additionnalData">
+    <p *ngIf="lastIn">
+      The last item added to the queue is {{lastItem}}
+    </p>
+    <p>
+      The queue is currently composed of :
+    </p>
+    <div *ngFor="let entry of entries">
+      <span>{{entry}}</span>
+    </div>
+    <p *ngIf="showLength">
+      The queue contains {{entries.length}} elements
+    </p>
+  </div>
+
+  <i id="arrowLeft" class="fa fa-angle-left"></i>
+
+  <div id="queue">
+
+
+  </div>
+  <i id="arrowRight" class="fa fa-angle-left"></i>
+</div>
