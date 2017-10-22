@@ -58,7 +58,6 @@ export class LinkedListComponent implements OnInit {
             currentNode = currentNode.next
           } else {
             this.tail = currentNode
-            console.log(this.tail)
             break
           }
         }
@@ -72,7 +71,6 @@ export class LinkedListComponent implements OnInit {
         this.tail = this.head
       }
     }
-
   }
 
   public addLast() {
@@ -161,8 +159,10 @@ export class LinkedListComponent implements OnInit {
           currentNode = currentNode.next
         }
       }
+      this.length--
+    } else {
+      alert('Sorry, the value you are trying to remove doesn\'t exist')
     }
-    this.length--
   }
 
   public enumerate() {

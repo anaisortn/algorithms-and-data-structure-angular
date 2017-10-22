@@ -17,7 +17,9 @@ export class BinaryTreeComponent implements OnInit {
   }
 
   public getData() {
-    let data = parseInt(window.prompt('Enter a number'))
+    let data = parseFloat(window.prompt('Enter a number'))
+    data.toFixed
+    console.log(data)
     // let data = parseInt(document.getElementsByName('number')[0].value)
     if (isNaN(data)) {
       return null
@@ -68,17 +70,24 @@ export class BinaryTreeComponent implements OnInit {
         if (children.firstChild) {
           let append = children.firstChild
           let child = document.getElementById(append._data).parentNode
+          console.log(child)
           parent.removeChild(element)
           parent.appendChild(child)
         } else {
           let append = children.secondChild
           let child = document.getElementById(append._data).parentNode
+          console.log(child)
+
           parent.removeChild(element)
           parent.appendChild(child)
         }
+
       }
     } else {
+      // let level = element.parentElement
+      // console.log(level, parent)
       parent.removeChild(element)
+      parent.parentElement.removeChild(parent)
     }
   }
 
