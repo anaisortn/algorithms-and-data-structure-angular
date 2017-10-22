@@ -145,29 +145,34 @@ export class BinaryTreeComponent implements OnInit {
   public contains = function () {
     let data = this.getData()
     let count = 0
-    if (data != null) {
-      let currentNode = this.head
-      while (currentNode) {
-        count++
-        if (data > currentNode._data) {
-          if (!currentNode.rightChild) {
-            window.alert('Sorry, that node doesn\'t exist ')
-            break
-          } else {
-            currentNode = currentNode.rightChild
+    if (this.head) {
+      if (data != null) {
+        let currentNode = this.head
+        while (currentNode) {
+          count++
+          if (data > currentNode._data) {
+            if (!currentNode.rightChild) {
+              alert('Sorry, that node doesn\'t exist ')
+              break
+            } else {
+              currentNode = currentNode.rightChild
+            }
+          } else if (data < currentNode._data) {
+            if (!currentNode.leftChild) {
+              alert('Sorry, that node doesn\'t exist ')
+              break
+            } else {
+              currentNode = currentNode.leftChild
+            }
+          } else if (data == currentNode._data) {
+            // window.alert('The node already exists', currentNode)
+            return currentNode
           }
-        } else if (data < currentNode._data) {
-          if (!currentNode.leftChild) {
-            window.alert('Sorry, that node doesn\'t exist ')
-            break
-          } else {
-            currentNode = currentNode.leftChild
-          }
-        } else if (data == currentNode._data) {
-          // window.alert('The node already exists', currentNode)
-          return currentNode
         }
       }
+    } else {
+      alert('Sorry, that node doesn\'t exist ')
+      return null
     }
   }
 
@@ -175,11 +180,11 @@ export class BinaryTreeComponent implements OnInit {
   public remove = function () {
     let data = this.contains()
     let send = data
-    let children = {
-      firstChild: data.leftChild,
-      secondChild: data.rightChild
-    }
     if (data != null) {
+      let children = {
+        firstChild: data.leftChild,
+        secondChild: data.rightChild
+      }
 
       // Parent
       if (data.parent) {
