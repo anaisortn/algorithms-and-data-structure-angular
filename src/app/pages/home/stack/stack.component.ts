@@ -15,13 +15,11 @@ export class StackComponent implements OnInit {
   }
 
   public push() {
-    let item = window.prompt('Please enter a number or operator')
-    // if (!isNaN(item)) {
-    //   item = parseInt(item)
-    // }
-    let currentHead = document.getElementById('stackHead')
+    let item = window.prompt('Please enter a number or an operator')
+    let currentHead = document.getElementsByClassName('stackHead')[0]
     if (currentHead) {
-      currentHead.removeAttribute('id')
+      currentHead.removeAttribute('class')
+      currentHead.setAttribute('class', 'stackElement')
     }
 
     this.stack[this.stack.length] = item
@@ -29,23 +27,24 @@ export class StackComponent implements OnInit {
     let txt = document.createTextNode(item)
     let parent = document.getElementById('stack')
     button.setAttribute('class', 'stackElement')
-    button.setAttribute('id', 'stackHead')
+    button.setAttribute('class', 'stackHead')
+    button.setAttribute('id', item)
     button.appendChild(txt)
     parent.appendChild(button)
   }
 
-  public pushToStack(item, i) {
+  public pushToStack(item) {
     let button = document.createElement('div')
     let txt = document.createTextNode(item)
     button.appendChild(txt)
     button.setAttribute('class', 'stackElement')
+    button.setAttribute('id', 'stackHead')
     let parent = document.getElementById('stack')
     parent.insertBefore(button, parent.firstChild)
-    this.stack.splice(i - 2, 1)
     console.log('ITEM', item)
     this.stack[0] = item
     console.log(this.stack)
-    this.calculator()
+    return item
   }
 
   public pop() {
@@ -56,11 +55,11 @@ export class StackComponent implements OnInit {
       let parent = document.getElementById('stack')
       parent.removeChild(element)
       let stackElements = document.getElementsByClassName('stackElement')
-      let newChild = stackElements[stackElements.length - 1]
-      newChild.setAttribute('id', 'stackHead')
-      let deletedData = this.stack[this.stack.length]
-      delete this.stack[this.stack.length]
-      return deletedData
+      this.stack.splice(this.stack.length - 1, 1)
+      if (this.stack[0]) {
+        let newChild = stackElements[stackElements.length - 1]
+        newChild.setAttribute('id', 'stackHead')
+      }
     }
   }
 
@@ -78,48 +77,53 @@ export class StackComponent implements OnInit {
   }
 
   public calculator() {
-    // Loop through stack, enumerate and return final result
+    let results = []
     for (let i = 0; i < this.stack.length; i++) {
-      console.log(this.stack[i])
-      let parent = document.getElementById('stack')
-      // parent.removeChild(parent.childNodes[0])
       if (!isNaN(this.stack[i])) {
-        console.log('is Number', this.stack[i])
-      } else if (isNaN(this.stack[i])) {
-        // this.push(item)
-        // } else {
-        // let firstNumber = this.pop()
-        // let secondNumber = this.pop()
-        let firstNumber = this.stack[i - 1]
-        let secondNumber = this.stack[i - 2]
-        // this.stack.length = this.stack.length - 3
-        console.log('is not a Number', this.stack[i], firstNumber, secondNumber)
+        results.push(this.stack[i])
+      } else {
+        let firstNumber = results.pop()
+        let secondNumber = results.pop()
+
+        let parent = document.getElementById('stack')
+        let element1 = document.getElementById(firstNumber)
+        let element2 = document.getElementById(secondNumber)
+        let element3 = document.getElementById(this.stack[i])
+        if (element1) {
+          parent.removeChild(element1)
+        }
+        if (element2) {
+          parent.removeChild(element2)
+        }
+        parent.removeChild(element3)
 
         switch (this.stack[i]) {
           case '+':
-            this.pushToStack(+secondNumber + +firstNumber, [i])
-            console.log(this.stack)
+            results.push(+secondNumber + +firstNumber)
             break
           case '-':
-            this.pushToStack(secondNumber - firstNumber, [i])
-            console.log(this.stack)
+            results.push(secondNumber - firstNumber)
             break
           case '*':
-            this.pushToStack(secondNumber * firstNumber, [i])
-            console.log(this.stack)
+            results.push(secondNumber * firstNumber)
             break
           case '/':
-            this.pushToStack(secondNumber / firstNumber, [i])
-            console.log(this.stack)
+            results.push(secondNumber / firstNumber)
             break
           case '%':
-            this.pushToStack(firstNumber % secondNumber, [i])
-            console.log(this.stack)
+            results.push(firstNumber % secondNumber)
             break
-          // default:
-          //   alert('Unrecognized element : ', this.stack[i])
+          default:
+            alert('Unrecognized element : ' + this.stack[i])
         }
       }
     }
+    if (results.length === 1) {
+      this.stack = []
+      this.pushToStack(results.pop())
+    }
+
+
+
   }
 }

@@ -127,23 +127,12 @@ margin-left: 15px;
 }
 
 /* Stack */
-#stackHead {
-  border: none;
-  color: white;
-  background: #ee3b3b;
-  opacity: 0.8
-}
-
-#stackHead:hover { 
-  opacity: 0.9;
-}
-
 .stackElement {
   width: 14.5em;
   height: 2em;
   margin: 0.2em;
   border: 1px solid black;
-  transform: rotate(180deg)
+  transform: rotate(180deg);
 }
 
 .stackElement:hover {
@@ -151,6 +140,19 @@ margin-left: 15px;
   color: white;
   background: #ee3b3b;
   opacity: 0.8;
+}
+
+.stackHead {
+  transform: rotate(180deg);  
+  border: none;
+  color: white;
+  background: #ee3b3b;
+  opacity: 0.8
+  
+}
+
+.stackHead:hover { 
+  opacity: 0.9;
 }
 
 /* Binary Tree */
