@@ -1,10 +1,10 @@
 <div class="content">
   <div class="buttons">
-    <button (click)="addFirst('puppy')">
+    <button (click)="addFirst()">
       <i class="fa fa-plus"></i>
       <span>ADD FIRST</span>
     </button>
-    <button (click)="addLast(5)">
+    <button (click)="addLast()">
       <i class="fa fa-plus"></i>
       <span>ADD LAST</span>
     </button>
@@ -21,7 +21,7 @@
       <i class="fa fa-list"></i>
       <span>ENUMERATE</span>
     </button>
-    <button (click)="checkIfExists(3)">
+    <button (click)="checkIfExists()">
       <i class="fa fa-plus"></i>
       <span>CHECK IF EXISTS</span>
     </button>
@@ -29,10 +29,23 @@
       <i class="fa fa-terminal"></i>
       <span>SHOW LENGTH</span>
     </button>
-    <button (click)="removeValue(5)">
+    <button (click)="removeValue()">
       <i class="fa fa-minus"></i>
-      <span>REMOVE</span>
+      <span>REMOVE VALUE</span>
     </button>
+  </div>
+
+  <div id="additionnalData">
+    <p *ngIf="showEnumerate">
+      The list is currently composed of :
+      <br>
+      <span *ngFor="let element of list">{{element}}
+        <br>
+      </span>
+    </p>
+    <p *ngIf="showListLength">
+      The list contains {{length}} elements
+    </p>
   </div>
 
   <div class="linkedList">

@@ -1,7 +1,7 @@
 export class Node {
   
-    public next: any
-    public previous: any
+    public next = null
+    public previous = null
   
     constructor(private _data: any) { }
   

@@ -26,12 +26,13 @@
     <p *ngIf="lastIn">
       The last item added to the queue is {{lastItem}}
     </p>
-    <p>
+    <p *ngIf="enumerateQueue">
       The queue is currently composed of :
+      <br>
+      <span *ngFor="let entry of entries">{{entry}}
+        <br>
+      </span>
     </p>
-    <div *ngFor="let entry of entries">
-      <span>{{entry}}</span>
-    </div>
     <p *ngIf="showLength">
       The queue contains {{entries.length}} elements
     </p>

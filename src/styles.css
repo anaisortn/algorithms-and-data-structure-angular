@@ -12,6 +12,7 @@ html, body {
   color: #444;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 .content {
@@ -69,6 +70,40 @@ html, body {
 
 .buttons button span {
 margin-left: 15px;
+}
+
+/* Linked List */
+
+.linkedList {
+  position: absolute;
+  /* border-top: 1px solid black;
+  border-bottom: 1px solid black; */
+  width: 80%;
+  height: 10em;
+  margin: 8em 10em 0;
+}
+
+
+.listElement {
+  padding-top: 70px;
+  text-align: center;
+  float: left;
+  position: relative;
+  width: 50px;
+  margin: 2px;
+  border: 1px solid black;
+  background: white;
+  color: black;
+  height: 5em;
+  width: 50px;
+  font-size: 16px;
+}
+
+.listElement:hover {
+  border: none;
+  color: white;
+  background: #ee3b3b;
+  opacity: 0.8;
 }
 
 /* Queue */
@@ -231,12 +266,12 @@ margin-left: 15px;
   height: 12px;
 }
 
-span:hover {
+.buttons span:hover {
   background: #e9453f;
   color: #fff;
 }
 
-span:last-child:hover {
+.buttons span:last-child:hover {
 
   background: #e9453f;
   color: #fff;

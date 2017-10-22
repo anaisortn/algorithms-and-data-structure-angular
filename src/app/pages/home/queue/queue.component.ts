@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class QueueComponent implements OnInit {
 
   public entries = []
-  public length = this.entries.length
+  // public length = this.entries.length
   public showLength = false
   public lastIn = false
+  public enumerateQueue = false
   public lastItem
-  public
 
   constructor() { }
 
@@ -23,8 +23,7 @@ export class QueueComponent implements OnInit {
     this.showLength = true
     setTimeout(function () {
       this.showLength = false
-    }, 1000)
-    // console.log(this.entries.length)
+    }.bind(this), 5000)
   }
 
   public enqueue() {
@@ -40,23 +39,26 @@ export class QueueComponent implements OnInit {
   }
 
   public enumerate() {
-    for (let i = 0; i < this.entries.length; i++) {
-      console.log(this.entries[i])
-    }
+    this.enumerateQueue = true
+    setTimeout(function () {
+      this.enumerateQueue = false
+    }.bind(this), 5000)
   }
 
   public peek() {
-    this.lastItem = this.entries[length-1]
+    this.lastItem = this.entries[this.entries.length - 1]    
     this.lastIn = true
-    console.log(this.entries[0])
+    setTimeout(function () {
+      this.lastIn = false
+    }.bind(this), 5000)
   }
 
   public dequeue() {
     let element = document.getElementsByClassName('queueElement')[0]
-    element.parentNode.removeChild(element)
     if (this.entries.length == 0) {
       alert('No item can be dequeued since the queue is empty')
     } else {
+      element.parentNode.removeChild(element)
       this.entries.splice(0, 1)
       console.log(this.entries)
     }

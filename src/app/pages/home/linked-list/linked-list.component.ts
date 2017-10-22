@@ -12,78 +12,112 @@ export class LinkedListComponent implements OnInit {
   public head: any
   public tail: any
   public length = 0
+  public list = []
+  public showListLength = false
+  public showEnumerate = false
 
   constructor() { }
 
   public ngOnInit() { }
 
-  public showLength() {
-    console.log(this.length)
+  public getData() {
+    let data = window.prompt('Enter an item to add to the queue')
+    return data
   }
 
-  public addFirst(value) {
-    console.log(value)
-    let nodeDoesExist = this.checkIfExists(value)
-    // console.log(nodeDoesExist);
+  public showLength() {
+    this.showListLength = true
+    setTimeout(function () {
+      this.showListLength = false
+    }.bind(this), 5000)
+  }
+
+  public addFirst() {
+    let data = this.getData()
+    let nodeDoesExist = this.checkIfExists(data)
     if (nodeDoesExist) {
       console.log('That node already exists, try with another value')
     } else {
-      let node = new Node(value);
+      let node = new Node(data)
+      let element = document.createElement('div')
+      element.setAttribute('class', 'listElement')
+      element.setAttribute('id', data)
+      let txt = document.createTextNode(data)
+      element.appendChild(txt)
+      let parent = document.getElementsByClassName('linkedList')[0]
+
       if (this.length) {
-        let temp = this.head;
-        this.head = node;
-        this.head.next = temp;
-        this.head.next.previous = this.head;
-        // console.log(this.head, this.head.next, this.head.next.previous)
+        parent.insertBefore(element, parent.childNodes[0])
+        let temp = this.head
+        this.head = node
+        this.head.next = temp
+        this.head.next.previous = this.head
+        let currentNode = this.head
+        while (currentNode) {
+          if (currentNode.next) {
+            currentNode = currentNode.next
+          } else {
+            this.tail = currentNode
+            console.log(this.tail)
+            break
+          }
+        }
       } else {
-        this.head = node;
-        // console.log(this.length);
+        this.head = node
+        this.tail = node
+        parent.appendChild(element)
       }
       this.length++
       if (this.length == 1) {
-        this.tail = this.head;
-        // console.log(this.head + '+' + this.head.next + '+' + this.tail)
+        this.tail = this.head
       }
     }
+
   }
 
-  public addLast(value) {
-    let nodeDoesExist = this.checkIfExists(value)
+  public addLast() {
+    let data = this.getData()
+    let nodeDoesExist = this.checkIfExists(data)
     if (nodeDoesExist) {
       alert('That node already exists, try with another value')
     } else {
-      let node = new Node(value);
+      let node = new Node(data);
+      let element = document.createElement('div')
+      element.setAttribute('class', 'listElement')
+      element.setAttribute('id', data)
+      let txt = document.createTextNode(data)
+      element.appendChild(txt)
+      let parent = document.getElementsByClassName('linkedList')[0]
+      parent.appendChild(element)
+
       if (this.length == 0) {
         this.tail = node;
         this.head = node;
       } else {
         let temp = this.tail;
         this.tail.next = node;
-        // console.log(this.tail)
         this.tail = node;
-        // console.log(this.tail)
-        // console.log(node.previous)
         node.previous = temp;
-        // console.log(node.previous)      
       }
       this.length++;
-      // console.log(this.length)
     }
   }
 
   public removeFirst() {
+    let element = document.getElementById(this.head._data)
+    element.parentNode.removeChild(element)
     if (this.length != 0) {
       this.head = this.head.next;
       this.length--;
-
       if (this.length == 0) {
         this.tail = null;
-        // console.log(this.length, this.head, this.tail)
       }
     }
   }
 
   public removeLast() {
+    let element = document.getElementById(this.tail._data)
+    element.parentNode.removeChild(element)
     if (this.length != 0) {
       if (this.length == 1) {
         this.head = null;
@@ -100,42 +134,61 @@ export class LinkedListComponent implements OnInit {
     this.length--;
   }
 
-  public removeValue(value) {
-    let nodeDoesExist = this.checkIfExists(value)
-    let currentNode = this.head
-    while (currentNode) {
-      if (currentNode.data == value) {
-        console.log(currentNode.previous, currentNode.next)
-        currentNode.previous.next = currentNode.next;
-        currentNode.next.previous = currentNode.previous;
-        break;
-      } else {
-        alert('A node with such value doesn\'t exist')
-        currentNode = currentNode.next;
+  public removeValue() {
+    let data = this.getData()
+    let nodeDoesExist = this.checkIfExists(data)
+    if (nodeDoesExist) {
+      let currentNode = this.head
+      while (currentNode) {
+        if (currentNode._data == data) {
+          if (currentNode.next && currentNode.previous) {
+            currentNode.previous.next = currentNode.next
+            currentNode.next.previous = currentNode.previous
+          } else if (currentNode.next && !currentNode.previous) {
+            currentNode.next.previous = null
+            this.head = currentNode.next
+          } else if (!currentNode.next && currentNode.previous) {
+            currentNode.previous.next = null
+            this.tail = currentNode.previous
+          } else {
+            this.head = null
+            this.tail = null
+          }
+          let element = document.getElementById(data)
+          element.parentNode.removeChild(element)
+          break
+        } else {
+          currentNode = currentNode.next
+        }
       }
     }
+    this.length--
   }
 
   public enumerate() {
     let currentNode = this.head;
+    this.showEnumerate = true
+    
+    setTimeout(function () {
+      this.showEnumerate = false
+    }.bind(this), 5000)
+
     while (currentNode) {
+      this.list.push(currentNode._data)
       console.log(currentNode)
-      currentNode = currentNode.next;
+      currentNode = currentNode.next
     }
-    return false;
+    return
   }
 
-  public checkIfExists(value) {
+  public checkIfExists(data) {
     let exists = false;
     let currentNode = this.head;
     while (currentNode) {
-      // console.log(currentNode.data)
-      if (currentNode.data == value) {
-        // console.log(item, 'is equal to', currentNode)
+      if (currentNode._data == data) {
         exists = true;
         break;
-      // } else {
-      //   // console.log(item + "doesn't exist yet")
+      } else {
       }
       currentNode = currentNode.next;
     }
