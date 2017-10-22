@@ -168,7 +168,7 @@ export class LinkedListComponent implements OnInit {
   public enumerate() {
     let currentNode = this.head;
     this.showEnumerate = true
-    
+
     setTimeout(function () {
       this.showEnumerate = false
     }.bind(this), 5000)
@@ -195,4 +195,13 @@ export class LinkedListComponent implements OnInit {
     return exists;
   }
 
+  public dataExists() {
+    let data = this.getData()
+    let result = this.checkIfExists(data)
+    if (result) {
+      window.alert('The element exists')
+    } else {
+      window.alert('The element doesn\'t exist yet')
+    }
+  }
 }
